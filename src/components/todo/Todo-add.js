@@ -1,14 +1,19 @@
 export default function TodoAdd(props) {
-  const { tasks, taskValue, theThis } = props;
+  const { tasks, taskValue, theThis, inputRef } = props;
 
   const addTask = (_) => {
     const newTask = [...tasks];
     const value = taskValue.trimStart();
-    value != "" && newTask.push({ text: value });
+   if(value != ""){
+    newTask.push({ text: value })
+    localStorage.setItem('tasks', JSON.stringify(newTask));
     theThis.setState({
       tasks: newTask,
       taskValue: "",
     });
+   }
+    
+    inputRef.current.focus()
   };
 
   const setValue = (e) => {
@@ -24,6 +29,7 @@ export default function TodoAdd(props) {
       <input
         type="text"
         value={taskValue}
+        ref={inputRef}
         onChange={setValue}
         onKeyDown={addTaskOnPress}
       />

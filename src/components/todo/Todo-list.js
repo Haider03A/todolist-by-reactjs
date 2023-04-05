@@ -7,6 +7,7 @@ export default function TodoList(props) {
     theThis.setState({
       tasks: newTask,
     })
+    localStorage.setItem('tasks', JSON.stringify(newTask));
     }
     
     return(
